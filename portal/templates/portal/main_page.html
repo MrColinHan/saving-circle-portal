@@ -5,6 +5,25 @@
     <title>Saving Circle Dashboard</title>
     <link rel="stylesheet" href="/static/css/styles.css">
 
+    <nav>
+        <ul>
+            <li>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Dashboard Logout</button>
+                </form>
+
+            </li>
+            <br>
+            <li>
+                <form action="{% url 'django_admin' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Django Admin</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+
 </head>
 <body>
 

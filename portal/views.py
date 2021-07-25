@@ -20,14 +20,14 @@ import pandas as pd
 from django.shortcuts import render, redirect
 import os
 from django.contrib.auth.forms import UserChangeForm, AuthenticationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 
 # Inputs ========================================================================================
 graph_Api_url = 'https://api.thegraph.com/subgraphs/name/mrcolinhan/saving-circle-subgraph'
 # ===============================================================================================
 
-'''===Portal Login form function==='''
+'''===Admin Login form function==='''
 def login_view(request):
     if request.method == 'POST':
         login_form = AuthenticationForm(data=request.POST)
@@ -39,6 +39,18 @@ def login_view(request):
     else:
         login_form = AuthenticationForm()
     return render(request, 'portal/login.html', {'login_form': login_form})
+
+
+'''===Admin Logout function==='''
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('/')
+
+
+'''===redirect to django admin==='''
+def goto_admin_view(request):
+    return redirect('/admin')
 
 
 '''===passing circle data to HTML==='''
