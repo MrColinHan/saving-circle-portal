@@ -1,11 +1,11 @@
 body{
-    background: floralwhite;
-    background-repeat: no-repeat;
+    background: lightgrey;
     color: black;
+    font-family: "Gill Sans";
 }
 
 body *{
-    font-family: Ubuntu;
+    font-family: "Gill Sans";
 }
 
 h1,h2,h3,h4,h5{
