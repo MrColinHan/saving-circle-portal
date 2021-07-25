@@ -21,6 +21,7 @@ from django.shortcuts import render, redirect
 import os
 from django.contrib.auth.forms import UserChangeForm, AuthenticationForm
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 
 # Inputs ========================================================================================
 graph_Api_url = 'https://api.thegraph.com/subgraphs/name/mrcolinhan/saving-circle-subgraph'
@@ -41,6 +42,7 @@ def login_view(request):
 
 
 '''===passing circle data to HTML==='''
+@login_required(login_url="/")
 def pass_python_data_toHTML(request):
     '''===connect to the queries http on The Graph==='''
     http_transport = RequestsHTTPTransport(
