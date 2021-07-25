@@ -1,0 +1,30 @@
+body{
+    background: floralwhite;
+    background-repeat: no-repeat;
+    color: black;
+}
+
+body *{
+    font-family: Ubuntu;
+}
+
+h1,h2,h3,h4,h5{
+    font-weight: normal;
+    margin: 0;
+    color: black;
+}
+
+a{
+    color: black;
+    text-decoration: underline;
+}
+
+a:hover{
+    color: darkcyan;
+    text-decoration: underline;
+}
+
+a:visited{
+    color: darkcyan;
+    text-decoration: underline;
+}
