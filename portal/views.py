@@ -24,6 +24,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 import mimetypes
 from django.http import HttpResponse
+import copy
 
 # Inputs ========================================================================================
 graph_Api_url = 'https://api.thegraph.com/subgraphs/name/mrcolinhan/saving-circle-subgraph'
@@ -54,6 +55,13 @@ def logout_view(request):
 def goto_admin_view(request):
     return redirect('/admin')
 
+
+def get_x_dayList(x):  # get a list of x days counting from today
+    datetime_list = pd.date_range(end=datetime.today(), periods=x).to_pydatetime().tolist()
+    result = list()
+    for i in datetime_list:
+        result.append(i.strftime('%m-%d-%y'))
+    return result
 
 '''===passing circle data to HTML==='''
 @login_required(login_url="/")
@@ -120,13 +128,56 @@ def pass_python_data_toHTML(request):
     '''===save "loan request" data to a dataframe==='''
     print(f"====== Pulling_request Data ======")
 
+
+
+    '''===passing data to js==='''
+    print(f"====== passing data to js ======")
+
+    # convert circle datetime to str-date
+    circle_created_dates_list = circle_count_byDay_df.to_frame().rename(columns={'circle address': 'count'}).index.to_list()
+    str_circle_created_dates_list = list()  # all days
+    for i in circle_created_dates_list:
+        str_circle_created_dates_list.append(i.strftime('%m-%d-%y'))
+
+    circle_dailyCount_list = circle_count_byDay_df.to_frame().rename(columns={'circle address': 'count'})['count'].to_list()
+
+    # IMPORTANT
+    circle_date_count_dict = dict(zip(str_circle_created_dates_list, circle_dailyCount_list))
+
+    empty_30days_dict = dict.fromkeys(get_x_dayList(30), 0)
+    empty_90days_dict = dict.fromkeys(get_x_dayList(90), 0)
+    empty_365days_dict = dict.fromkeys(get_x_dayList(365), 0)
+
+    # IMPORTANT
+    circle_date_count_dict_30days = copy.deepcopy(empty_30days_dict)
+    circle_date_count_dict_90days = copy.deepcopy(empty_90days_dict)
+    circle_date_count_dict_365days = copy.deepcopy(empty_365days_dict)
+    for k in circle_date_count_dict:
+        circle_date_count_dict_30days[k] = circle_date_count_dict[k]
+        circle_date_count_dict_90days[k] = circle_date_count_dict[k]
+        circle_date_count_dict_365days[k] = circle_date_count_dict[k]
+
+
     pass_data = {
         'amount_of_circles': len(graphql_query_response['circleCreatedEntities']),
-        'circle_created_dates_list': ['7/5/21','7/6/21','7/7/21','7/8/21','7/9/21','7/10.21'],#circle_count_byDay_df.to_frame().rename(columns={'circle address': 'count'}).index.to_list(),
-        'circle_dailyCount_list': circle_count_byDay_df.to_frame().rename(columns={'circle address': 'count'})['count'].to_list(),
 
-        'deposit_created_dates_list': ['7/5/21','7/6/21','7/7/21','7/8/21','7/9/21','7/10.21'],#deposit_count_byDay_df.to_frame().rename(columns={'id': 'count'}).index.to_list(),
-        'deposit_dailyCount_list': [0,0,0,0,1,2]#deposit_count_byDay_df.to_frame().rename(columns={'id': 'count'})['count'].to_list()
+        'circle_created_dates_list': circle_date_count_dict.keys(),
+        'circle_dailyCount_list': circle_date_count_dict.values(),
+
+        '30days_circle_created_dates_list': circle_date_count_dict_30days.keys(),
+        '30days_circle_dailyCount_list': circle_date_count_dict_30days.values(),
+        '90days_circle_created_dates_list': circle_date_count_dict_90days.keys(),
+        '90days_circle_dailyCount_list': circle_date_count_dict_90days.values(),
+        '365days_circle_created_dates_list': circle_date_count_dict_365days.keys(),
+        '365days_circle_dailyCount_list': circle_date_count_dict_365days.values(),
+
+        'deposit_created_dates_list': deposit_count_byDay_df.to_frame().rename(columns={'id': 'count'}).index.to_list(),
+        'deposit_dailyCount_list': deposit_count_byDay_df.to_frame().rename(columns={'id': 'count'})['count'].to_list(),
+
+        '30days_list': get_x_dayList(30),
+        '90days_list': get_x_dayList(90),
+        '365days_list': get_x_dayList(365)
+
     }
     return render(request, 'portal/main_page.html', pass_data)
 
@@ -148,7 +199,7 @@ def download_deposit_file(request):
     response['Content-Disposition'] = "attachment; filename=deposits_made.csv"
     return response
 
-
+# def download_request_file(request)
 
 
 

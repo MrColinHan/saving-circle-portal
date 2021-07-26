@@ -10,7 +10,7 @@
 <body>
     <h1 style="text-align:center; font-size: 40px;">Saving Circle Dashboard</h1>
 
-    <br><br>
+    <br><hr><br>
 
     <div class="btn-group">
         <form action="{% url 'django_admin' %}" method="post">
@@ -29,52 +29,86 @@
     </div>
 
     <br><br>
+
+    <hr>
+
     <p style="margin-left: 20px; font-size:30px;">Current Stats: </p>
 
     <div class="container">
 
         <div class="item">
             <p style="font-size:20px;">
-            &emsp;# of Circles created:&ensp;&ensp;{{ amount_of_circles }}<br>
-            &emsp;# of Deposits made:&ensp;&ensp;7<br>
+            &emsp;# of Circles created:&ensp;&ensp;{{ amount_of_circles }}<br><br>
+            &emsp;# of Deposits made:&ensp;&ensp;7<br><br>
             &emsp;# of Loan requests made:&ensp;&ensp;2<br>
             </p>
         </div>
 
         <div class="item">
             <p style="font-size:20px;">
-            &emsp;Total Deposits:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;{{ amount_of_circles }} $<br><br>
-            &emsp;Total Loan Requests:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;{{ amount_of_circles }} $
+            &emsp;Total Deposits:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;${{ 700 }} <br><br>
+            &emsp;Total Loan Requests:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;${{ 100 }}
             </p>
         </div>
     </div>
+    <br>
 
+    <hr>
+
+    <div style="margin-left: 20px">
+        <p style="font-size:30px;">Adjust Time Range</p>
+        <button onclick="change_ALLdays()">All</button>
+        <button onclick="change_30days()">30D</button>
+        <button onclick="change_365days()">1Y</button>
+    </div>
 
 
     <!-- Circle count Chart-->
     <div style=" width: 1000px; height:500px;">
-        <p style="font-size:20px;position:relative; left:300px;">Circle Created Frequency</p>
-        <button onclick="show_circle_chart()">30D</button>
-        <button onclick="show_circle_chart()">60D</button>
-        <button onclick="show_circle_chart()">1Y</button>
-        <button onclick="show_circle_chart()">All</button>
-        <canvas id="circleCount_chart" width="800" height="300"></canvas>
+        <p style="font-size:30px; text-align: center;">Circle Created Frequency</p>
+
+        <canvas id="circleCount_chart" width="800" height="300" style="margin: 0 auto;"></canvas>
     </div>
     <script>
-        var circle_created_dates_list = [
+
+        var daysALL_circle_created_dates_list = [
             {% for item in circle_created_dates_list %}
             "{{ item }}",
             {% endfor %}
-        ]
-        var circle_dailyCount_list = [
+        ];
+        var daysALL_circle_dailyCount_list = [
             {% for item in circle_dailyCount_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var days30_circle_created_dates_list = [
+            {% for item in 30days_circle_created_dates_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var days30_circle_dailyCount_list = [
+            {% for item in 30days_circle_dailyCount_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var days365_circle_created_dates_list = [
+            {% for item in 365days_circle_created_dates_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var days365_circle_dailyCount_list = [
+            {% for item in 365days_circle_dailyCount_list %}
             "{{ item }}",
             {% endfor %}
         ]
     </script>
 
 
+    <!--link for chart.js on cdn-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.0/chart.min.js"></script>
 
+    <!--link for other js files-->
+    <script src="static/js/main.js"></script>
 
 
 </body>
