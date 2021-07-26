@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saving Circle Dashboard</title>
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/login_styles.css">
 
 </head>
 <body>
     <br><br>
 
-    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<img src="static/css/icon.png">
-    <h1>Saving Circle Dashboard Login</h1>
+    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<img style="display: block; margin-left: auto; margin-right: auto;" src="static/css/icon.png">
     <br>
-    <form method="post">
+    <h1 style="text-align:center;">Saving Circle Dashboard Login</h1>
+    <br>
+    <form style="text-align:center;" method="post">
         {% csrf_token %}
         {{ login_form }}
         <input type="submit" value="Login">

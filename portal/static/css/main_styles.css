@@ -1,0 +1,67 @@
+body{
+    background: lightgrey;
+    color: black;
+    font-family: "Gill Sans";
+}
+
+body *{
+    font-family: "Gill Sans";
+}
+
+h1,h2,h3,h4,h5{
+    font-weight: normal;
+    margin: 0;
+    color: black;
+}
+
+a{
+    color: black;
+    text-decoration: underline;
+}
+
+a:hover{
+    color: darkcyan;
+    text-decoration: underline;
+}
+
+a:visited{
+    color: darkcyan;
+    text-decoration: underline;
+}
+
+.btn-group button {
+  background-color: lightslategrey; /* Green background */
+  border: 1px solid black; /* Green border */
+  color: floralwhite; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  width: 100%; /* Set a width if needed */
+  display: block; /* Make the buttons appear below each other */
+  margin: 5px;
+  box-shadow: 0 0 10px gray;
+  text-align: center;
+  font-size:18px;
+}
+
+.btn-group button:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: burlywood;
+}
+
+ .container {
+        display: grid;
+        grid-template-columns: 300px 300px;
+        grid-template-rows: 200px;
+        grid-column-gap: 100px;
+        margin-left: 20px;
+      }
+
+      .item {
+        background: ivory;
+        border: 1px solid dimgrey;
+        box-shadow: 0 0 10px gray;
+      }

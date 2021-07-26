@@ -4,44 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saving Circle Dashboard</title>
-    <link rel="stylesheet" href="/static/css/styles.css">
-
-    <nav>
-        <ul>
-            <li>
-                <form action="{% url 'logout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Dashboard Logout</button>
-                </form>
-
-            </li>
-            <br>
-            <li>
-                <form action="{% url 'django_admin' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Django Admin</button>
-                </form>
-            </li>
-        </ul>
-    </nav>
+    <link rel="stylesheet" href="/static/css/main_styles.css">
 
 </head>
 <body>
+    <h1 style="text-align:center; font-size: 40px;">Saving Circle Dashboard</h1>
 
-    <h1 style="text-align:center">Saving Circle Dashboard</h1>
+    <br><br>
 
-    <div style="width: 400px; height:300px;position:absolute; left:100px;top:100px; border:1px; border-style:solid; border-color:#F4D03F; padding-left: 10px;">
-        <p style="font-size:20px;">
-            Current Stats: <br><br>
-            &emsp;number of Circles created:&ensp;&ensp;{{ amount_of_circles }}<br>
-            &emsp;number of active users:&ensp;&ensp;1<br>
-            &emsp;number of deposits made:&ensp;&ensp;7<br>
-            &emsp;number of loan requests made:&ensp;&ensp;2<br>
-        </p>
+    <div class="btn-group">
+        <form action="{% url 'django_admin' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Django Admin</button>
+        </form>
+
+        <button onclick="window.location.href='/download_circle'">Download circles_created.csv</button>
+
+        <button onclick="window.location.href='/download_deposit'">Download deposits_made.csv</button>
+
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Dashboard Logout</button>
+        </form>
     </div>
 
+    <br><br>
+    <p style="margin-left: 20px; font-size:30px;">Current Stats: </p>
+
+    <div class="container">
+
+        <div class="item">
+            <p style="font-size:20px;">
+            &emsp;# of Circles created:&ensp;&ensp;{{ amount_of_circles }}<br>
+            &emsp;# of Deposits made:&ensp;&ensp;7<br>
+            &emsp;# of Loan requests made:&ensp;&ensp;2<br>
+            </p>
+        </div>
+
+        <div class="item">
+            <p style="font-size:20px;">
+            &emsp;Total Deposits:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;{{ amount_of_circles }} $<br><br>
+            &emsp;Total Loan Requests:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;{{ amount_of_circles }} $
+            </p>
+        </div>
+    </div>
+
+
+
     <!-- Circle count Chart-->
-    <div style=" width: 1000px; height:500px; position:absolute; left:800px;top:100px;">
+    <div style=" width: 1000px; height:500px;">
         <p style="font-size:20px;position:relative; left:300px;">Circle Created Frequency</p>
         <button onclick="show_circle_chart()">30D</button>
         <button onclick="show_circle_chart()">60D</button>
@@ -63,43 +74,7 @@
     </script>
 
 
-    <!-- Deposit count Chart-->
-    <div style=" width: 1000px; height:500px; position:absolute; left:100px;top:600px;">
-        <p style="font-size:20px;position:relative; left:300px;">Deposit Made Frequency</p>
-        <button onclick="show_circle_chart()">30D</button>
-        <button onclick="show_circle_chart()">60D</button>
-        <button onclick="show_circle_chart()">1Y</button>
-        <button onclick="show_circle_chart()">All</button>
-        <canvas id="depositCount_chart" width="600" height="300"></canvas>
-    </div>
-    <script>
-        var deposit_created_dates_list = [
-            {% for item in deposit_created_dates_list %}
-            "{{ item }}",
-            {% endfor %}
-        ]
-        var deposit_dailyCount_list = [
-            {% for item in deposit_dailyCount_list %}
-            "{{ item }}",
-            {% endfor %}
-        ]
-    </script>
 
-    <!-- loan request count Chart-->
-    <div style=" width: 1000px; height:500px; position:absolute; left:800px;top:600px;">
-        <p style="font-size:20px;position:relative; left:300px;">Loan request Made Frequency</p>
-        <button onclick="show_circle_chart()">30D</button>
-        <button onclick="show_circle_chart()">60D</button>
-        <button onclick="show_circle_chart()">1Y</button>
-        <button onclick="show_circle_chart()">All</button>
-        <canvas id="loanRequestCount_chart" width="800" height="300"></canvas>
-    </div>
-
-    <!--link for chart.js on cdn-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.0/chart.min.js"></script>
-
-    <!--link for other js files-->
-    <script src="static/js/main.js"></script>
 
 
 </body>

@@ -22,6 +22,8 @@ import os
 from django.contrib.auth.forms import UserChangeForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+import mimetypes
+from django.http import HttpResponse
 
 # Inputs ========================================================================================
 graph_Api_url = 'https://api.thegraph.com/subgraphs/name/mrcolinhan/saving-circle-subgraph'
@@ -129,6 +131,22 @@ def pass_python_data_toHTML(request):
     return render(request, 'portal/main_page.html', pass_data)
 
 
+def download_circle_file(request):
+    f1_path = "csv_files_fromPy/circles_created.csv"
+    f1 = open(f1_path, 'r')
+    mime_type, _ = mimetypes.guess_type(f1_path)
+    response = HttpResponse(f1, content_type=mime_type)
+    response['Content-Disposition'] = "attachment; filename=circles_created.csv"
+    return response
+
+
+def download_deposit_file(request):
+    f1_path = "csv_files_fromPy/deposits_made.csv"
+    f1 = open(f1_path, 'r')
+    mime_type, _ = mimetypes.guess_type(f1_path)
+    response = HttpResponse(f1, content_type=mime_type)
+    response['Content-Disposition'] = "attachment; filename=deposits_made.csv"
+    return response
 
 
 
