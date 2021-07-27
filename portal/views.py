@@ -97,6 +97,7 @@ def pass_python_data_toHTML(request):
     graphql_query_response = client.execute(graphql_query)
 
     '''===save "circle" data to a dataframe==='''
+# =================================== save "circle" data to a dataframe ===================================
     print(f"====== Pulling Circle Data ======")
     circles_df = pd.DataFrame(columns=['circle address', 'creator address', 'timeStamp'])
     # print(f"{len(graphql_query_response['circleCreatedEntities'])} circles have been created: ")
@@ -112,6 +113,7 @@ def pass_python_data_toHTML(request):
         "csv_files_fromPy/circle_count_byDay.csv")  # output this df to a csv file
 
     '''===save "deposit_made" data to a dataframe==='''
+# =================================== save "deposit" data to a dataframe ===================================
     print(f"====== Pulling Deposit_made Data ======")
     deposit_df = pd.DataFrame(columns=['id', 'depositor', 'circle', 'amount', 'timeStamp'])
     for deposit in graphql_query_response['depositMadeEntities']:
@@ -120,19 +122,20 @@ def pass_python_data_toHTML(request):
                                            deposit['circle'], deposit['amount'],
                                            datetime.fromtimestamp(int(deposit['timeStamp']))]
     print(deposit_df)
+    total_deposit_amount_dollar = deposit_df['amount'].astype(int).sum()
     deposit_df.to_csv("csv_files_fromPy/deposits_made.csv")  # save as a csv file
     # === count number of deposits each day
     deposit_count_byDay_df = deposit_df.groupby(pd.Grouper(key='timeStamp', freq='D'))['id'].count()
     deposit_count_byDay_df.to_frame().rename(columns={'id': 'count'}).to_csv("csv_files_fromPy/deposit_count_byDay.csv")
 
     '''===save "loan request" data to a dataframe==='''
+# =================================== save "request" data to a dataframe ===================================
     print(f"====== Pulling_request Data ======")
 
 
 
     '''===passing data to js==='''
     print(f"====== passing data to js ======")
-
 # =================================== parse circle count data to chart.js ===================================
     # convert circle datetime to str-date
     circle_created_dates_list = circle_count_byDay_df.to_frame().rename(columns={'circle address': 'count'}).index.to_list()
@@ -192,6 +195,9 @@ def pass_python_data_toHTML(request):
         '90days_circle_dailyCount_list': circle_date_count_dict_90days.values(),
         '365days_circle_created_dates_list': circle_date_count_dict_365days.keys(),
         '365days_circle_dailyCount_list': circle_date_count_dict_365days.values(),
+
+        'amount_of_deposits': len(graphql_query_response['depositMadeEntities']),
+        'dollar_amount_of_deposits': total_deposit_amount_dollar,
 
         'deposit_created_dates_list': deposit_date_count_dict.keys(),
         'deposit_dailyCount_list': deposit_date_count_dict.values(),
