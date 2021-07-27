@@ -19,8 +19,8 @@
         </form>
 
         <button onclick="window.location.href='/download_circle'">Download circles_created.csv</button>
-
         <button onclick="window.location.href='/download_deposit'">Download deposits_made.csv</button>
+        <button onclick="window.location.href='/download_request'">Download requests_made.csv</button>
 
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
@@ -65,10 +65,20 @@
 
     <!-- Circle count Chart-->
     <div style=" width: 1000px; height:500px;">
-        <p style="font-size:30px; text-align: center;">Circle Created Frequency</p>
+        <p style="font-size:30px; text-align: center;">Circles Created Frequency</p>
 
-        <canvas id="circleCount_chart" width="800" height="300" style="margin: 0 auto;"></canvas>
+        <canvas id="circleCount_chart" width="800" height="400" style="margin: 0 auto;"></canvas>
     </div>
+
+    <!-- deposit count Chart-->
+    <div style=" width: 1000px; height:500px;">
+        <p style="font-size:30px; text-align: center;">Deposits Made Frequency</p>
+
+        <canvas id="depositCount_chart" width="800" height="400" style="margin: 0 auto;"></canvas>
+    </div>
+
+
+
     <script>
 
         var daysALL_circle_created_dates_list = [
@@ -100,7 +110,39 @@
             {% for item in 365days_circle_dailyCount_list %}
             "{{ item }}",
             {% endfor %}
+        ];
+
+        var daysALL_deposit_created_dates_list = [
+            {% for item in deposit_created_dates_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var daysALL_deposit_dailyCount_list = [
+            {% for item in deposit_dailyCount_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var days30_deposit_created_dates_list = [
+            {% for item in 30days_deposit_created_dates_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var days30_deposit_dailyCount_list = [
+            {% for item in 30days_deposit_dailyCount_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var days365_deposit_created_dates_list = [
+            {% for item in 365days_deposit_created_dates_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var days365_deposit_dailyCount_list = [
+            {% for item in 365days_deposit_dailyCount_list %}
+            "{{ item }}",
+            {% endfor %}
         ]
+
     </script>
 
 

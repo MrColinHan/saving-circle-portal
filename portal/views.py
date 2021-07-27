@@ -133,6 +133,7 @@ def pass_python_data_toHTML(request):
     '''===passing data to js==='''
     print(f"====== passing data to js ======")
 
+# =================================== parse circle count data to chart.js ===================================
     # convert circle datetime to str-date
     circle_created_dates_list = circle_count_byDay_df.to_frame().rename(columns={'circle address': 'count'}).index.to_list()
     str_circle_created_dates_list = list()  # all days
@@ -157,13 +158,34 @@ def pass_python_data_toHTML(request):
         circle_date_count_dict_90days[k] = circle_date_count_dict[k]
         circle_date_count_dict_365days[k] = circle_date_count_dict[k]
 
+# =================================== parse deposit count data to chart.js ===================================
+    # convert deposit datetime to str-date
+    deposit_created_dates_list = deposit_count_byDay_df.to_frame().rename(columns={'id': 'count'}).index.to_list()
+    str_deposit_created_dates_list = list()  # all days
+    for i in deposit_created_dates_list:
+        str_deposit_created_dates_list.append(i.strftime('%m-%d-%y'))
+
+    deposit_dailyCount_list = deposit_count_byDay_df.to_frame().rename(columns={'id': 'count'})['count'].to_list()
+
+    # IMPORTANT
+    deposit_date_count_dict = dict(zip(str_deposit_created_dates_list, deposit_dailyCount_list))
+
+    # IMPORTANT
+    deposit_date_count_dict_30days = copy.deepcopy(empty_30days_dict)
+    deposit_date_count_dict_90days = copy.deepcopy(empty_90days_dict)
+    deposit_date_count_dict_365days = copy.deepcopy(empty_365days_dict)
+    for k in deposit_date_count_dict:
+        deposit_date_count_dict_30days[k] = deposit_date_count_dict[k]
+        deposit_date_count_dict_90days[k] = deposit_date_count_dict[k]
+        deposit_date_count_dict_365days[k] = deposit_date_count_dict[k]
+
+# =================================== parse request count data to chart.js ===================================
 
     pass_data = {
         'amount_of_circles': len(graphql_query_response['circleCreatedEntities']),
 
         'circle_created_dates_list': circle_date_count_dict.keys(),
         'circle_dailyCount_list': circle_date_count_dict.values(),
-
         '30days_circle_created_dates_list': circle_date_count_dict_30days.keys(),
         '30days_circle_dailyCount_list': circle_date_count_dict_30days.values(),
         '90days_circle_created_dates_list': circle_date_count_dict_90days.keys(),
@@ -171,8 +193,14 @@ def pass_python_data_toHTML(request):
         '365days_circle_created_dates_list': circle_date_count_dict_365days.keys(),
         '365days_circle_dailyCount_list': circle_date_count_dict_365days.values(),
 
-        'deposit_created_dates_list': deposit_count_byDay_df.to_frame().rename(columns={'id': 'count'}).index.to_list(),
-        'deposit_dailyCount_list': deposit_count_byDay_df.to_frame().rename(columns={'id': 'count'})['count'].to_list(),
+        'deposit_created_dates_list': deposit_date_count_dict.keys(),
+        'deposit_dailyCount_list': deposit_date_count_dict.values(),
+        '30days_deposit_created_dates_list': deposit_date_count_dict_30days.keys(),
+        '30days_deposit_dailyCount_list': deposit_date_count_dict_30days.values(),
+        '90days_deposit_created_dates_list': deposit_date_count_dict_90days.keys(),
+        '90days_deposit_dailyCount_list': deposit_date_count_dict_90days.values(),
+        '365days_deposit_created_dates_list': deposit_date_count_dict_365days.keys(),
+        '365days_deposit_dailyCount_list': deposit_date_count_dict_365days.values(),
 
         '30days_list': get_x_dayList(30),
         '90days_list': get_x_dayList(90),
