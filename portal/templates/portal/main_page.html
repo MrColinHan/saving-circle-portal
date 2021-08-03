@@ -8,74 +8,81 @@
 
 </head>
 <body>
-    <h1 style="text-align:center; font-size: 40px;">Saving Circle Dashboard</h1>
 
-    <br><hr><br>
+    <div class="WebContainer">
 
-    <div class="btn-group">
-        <form action="{% url 'django_admin' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Django Admin</button>
-        </form>
+        <header class="TopHeader">
+            <br>
+            <img style="width: 200px;height: 70px;display: block;" src="static/css/icon.png">
+            <hr>
+        </header>
 
-        <button onclick="window.location.href='/download_circle'">Download circles_created.csv</button>
-        <button onclick="window.location.href='/download_deposit'">Download deposits_made.csv</button>
-        <button onclick="window.location.href='/download_request'">Download requests_made.csv</button>
+        <div class="btn-group">
+            <form action="{% url 'django_admin' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Django Admin</button>
+            </form>
 
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Dashboard Logout</button>
-        </form>
-    </div>
+            <button onclick="window.location.href='/download_circle'">Download circles_created.csv</button>
+            <button onclick="window.location.href='/download_deposit'">Download deposits_made.csv</button>
+            <button onclick="window.location.href='/download_request'">Download requests_made.csv</button>
 
-    <br><br>
-
-    <hr>
-
-    <p style="margin-left: 20px; font-size:30px;">Current Stats: </p>
-
-    <div class="container">
-
-        <div class="item">
-            <p style="font-size:20px;">
-            &emsp;# of Circles created:&ensp;&ensp;{{ amount_of_circles }}<br><br>
-            &emsp;# of Deposits made:&ensp;&ensp;{{ amount_of_deposits }}<br><br>
-            &emsp;# of Loan requests made:&ensp;&ensp;2<br>
-            </p>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Dashboard Logout</button>
+            </form>
         </div>
 
-        <div class="item">
-            <p style="font-size:20px;">
-            &emsp;Total Deposits:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;${{ dollar_amount_of_deposits }} <br><br>
-            &emsp;Total Loan Requests:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;${{ 100 }}
-            </p>
+        <br><br>
+
+        <hr>
+
+        <p style="margin-left: 20px; font-size:30px;">Current Stats: </p>
+
+        <div class="container">
+
+            <div class="item">
+                <p style="font-size:20px;">
+                &emsp;# of Circles created:&ensp;&ensp;{{ amount_of_circles }}<br><br>
+                &emsp;# of Deposits made:&ensp;&ensp;{{ amount_of_deposits }}<br><br>
+                &emsp;# of Loan requests made:&ensp;&ensp;2<br>
+                </p>
+            </div>
+
+            <div class="item">
+                <p style="font-size:20px;">
+                &emsp;Total Deposits:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;${{ dollar_amount_of_deposits }} <br><br>
+                &emsp;Total Loan Requests:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;${{ 100 }}
+                </p>
+            </div>
+        </div>
+        <br>
+
+        <hr>
+
+        <div style="margin-left: 20px">
+            <p style="font-size:30px;">Adjust Time Range (UTC time)</p>
+            <button onclick="change_ALLdays()">All</button>
+            <button onclick="change_30days()">30D</button>
+            <button onclick="change_365days()">1Y</button>
+        </div>
+
+
+        <!-- Circle count Chart-->
+        <div style=" width: 1000px; height:500px;">
+            <p style="font-size:30px; text-align: center;">Circles Created Frequency</p>
+
+            <canvas id="circleCount_chart" width="800" height="400" style="margin: 0 auto;"></canvas>
+        </div>
+
+        <!-- deposit count Chart-->
+        <div style=" width: 1000px; height:500px;">
+            <p style="font-size:30px; text-align: center;">Deposits Made Frequency</p>
+
+            <canvas id="depositCount_chart" width="800" height="400" style="margin: 0 auto;"></canvas>
         </div>
     </div>
-    <br>
 
-    <hr>
-
-    <div style="margin-left: 20px">
-        <p style="font-size:30px;">Adjust Time Range (UTC time)</p>
-        <button onclick="change_ALLdays()">All</button>
-        <button onclick="change_30days()">30D</button>
-        <button onclick="change_365days()">1Y</button>
-    </div>
-
-
-    <!-- Circle count Chart-->
-    <div style=" width: 1000px; height:500px;">
-        <p style="font-size:30px; text-align: center;">Circles Created Frequency</p>
-
-        <canvas id="circleCount_chart" width="800" height="400" style="margin: 0 auto;"></canvas>
-    </div>
-
-    <!-- deposit count Chart-->
-    <div style=" width: 1000px; height:500px;">
-        <p style="font-size:30px; text-align: center;">Deposits Made Frequency</p>
-
-        <canvas id="depositCount_chart" width="800" height="400" style="margin: 0 auto;"></canvas>
-    </div>
 
 
 

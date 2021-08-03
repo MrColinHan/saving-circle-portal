@@ -1,5 +1,18 @@
+.WebContainer{
+    width: 100%;
+    height: auto;
+}
+
+.TopHeader {
+    overflow: hidden;
+    background-color: #f5f5f5;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+}
+
 body{
-    background: lightgrey;
+    background: #F5F5F5 0% 0% no-repeat padding-box;
     color: black;
     font-family: "Gill Sans";
 }
@@ -10,7 +23,6 @@ body *{
 
 h1,h2,h3,h4,h5{
     font-weight: normal;
-    margin: 0;
     color: black;
 }
 
@@ -49,10 +61,12 @@ a:visited{
 
 /* Add a background color on hover */
 .btn-group button:hover {
-  background-color: burlywood;
+    background-color: #FACC5C;
+    color: black;
 }
 
- .container {
+/*======================================= delete and change =======================*/
+.container {
         display: grid;
         grid-template-columns: 300px 300px;
         grid-template-rows: 150px;
@@ -65,7 +79,7 @@ a:visited{
     border: 1px solid dimgrey;
     box-shadow: 0 0 10px gray;
 }
-
+/*======================================= delete and change =======================*/
 
 hr {
   display: block;
@@ -76,3 +90,4 @@ hr {
   border-style: inset;
   border-width: 1px;
 }
+

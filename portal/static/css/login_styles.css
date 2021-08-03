@@ -1,5 +1,5 @@
 body{
-    background: lightgrey;
+    background: #F5F5F5 0% 0% no-repeat padding-box;;
     color: black;
     font-family: "Gill Sans";
 }
@@ -29,3 +29,6 @@ a:visited{
     text-decoration: underline;
 }
 
+input:hover{
+    text-decoration: underline;
+}
