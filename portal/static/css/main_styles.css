@@ -1,24 +1,13 @@
-.WebContainer{
-    width: 100%;
-    height: auto;
-}
-
-.TopHeader {
-    overflow: hidden;
-    background-color: #f5f5f5;
-    position: fixed; /* Set the navbar to fixed position */
-    top: 0; /* Position the navbar at the top of the page */
-    width: 100%; /* Full width */
-}
-
 body{
     background: #F5F5F5 0% 0% no-repeat padding-box;
     color: black;
-    font-family: "Gill Sans";
+    font-family: Muna;
+    margin:60px;
+    padding:10px;
 }
 
 body *{
-    font-family: "Gill Sans";
+    font-family: Muna;
 }
 
 h1,h2,h3,h4,h5{
@@ -26,60 +15,155 @@ h1,h2,h3,h4,h5{
     color: black;
 }
 
-a{
-    color: black;
-    text-decoration: underline;
+.WebContainer{
+    width: 100%;
 }
 
-a:hover{
-    color: darkcyan;
-    text-decoration: underline;
+/*======================================= Nav header div =======================*/
+.TopHeader {
+    overflow: hidden;
+    background-color: #f5f5f5;
+    position: sticky; /* keep it on top+ */
+    z-index: 100; /*cover all texts*/
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%;/*  Full width */
+    display: grid;
+    align-items: center;
+    grid-template-columns: 150px 1px auto 7rem 7rem 3rem;
 }
 
-a:visited{
-    color: darkcyan;
-    text-decoration: underline;
+/*======================================= Time range buttons =======================*/
+
+.timeRangeButton{
+    cursor: pointer;
+    background: #f5f5f5 0% 0% no-repeat padding-box;
+    border: solid;
+    border-radius: 20px;
+    border-color: #F5F5F5;
+    font: normal normal normal 20px/30px Helvetica;
+    letter-spacing: 0px;
+    color: #707070;
 }
 
-.btn-group button {
-  background-color: lightslategrey; /* Green background */
-  border: 1px solid black; /* Green border */
-  color: floralwhite; /* White text */
-  padding: 10px 24px; /* Some padding */
-  cursor: pointer; /* Pointer/hand icon */
-  width: 100%; /* Set a width if needed */
-  display: block; /* Make the buttons appear below each other */
-  margin: 5px;
-  box-shadow: 0 0 10px gray;
-  text-align: center;
-  font-size:18px;
-}
-
-.btn-group button:not(:last-child) {
-  border-bottom: none; /* Prevent double borders */
-}
-
-/* Add a background color on hover */
-.btn-group button:hover {
+.timeRangeButton:hover{
     background-color: #FACC5C;
-    color: black;
+    text-decoration: underline;
 }
 
-/*======================================= delete and change =======================*/
-.container {
-        display: grid;
-        grid-template-columns: 300px 300px;
-        grid-template-rows: 150px;
-        grid-column-gap: 100px;
-        margin-left: 20px;
-      }
+.timeRangeButton:focus{
+    background-color: #FACC5C;
+    text-decoration: underline;
+}
 
-.item {
-    background: ivory;
-    border: 1px solid dimgrey;
+/*======================================= Log out buttons =======================*/
+.logoutButton{
+    cursor: pointer;
+    background: #f5f5f5;
+    border: solid;
+    border-radius: 50px;
+    border-color: #F5F5F5;
+    font: normal normal normal 30px/40px Muna;
+    letter-spacing: 0px;
+}
+
+.logoutButton:hover{
+    background-color: #FACC5C;
+    text-decoration: underline;
+}
+
+/*======================================= circle stats div =======================*/
+.statsContainer {
+    display: grid;
+    align-items: center;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.statsItem {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 10px;
     box-shadow: 0 0 10px gray;
+    padding: 0;
+
+    display: grid;
+    align-items: center;
+    margin-left: 10px;
+    /*grid-template-columns: 10rem auto;*/
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 20% 80%;
+    gap: 0px 0px;
+    grid-template-areas:
+            "stat_img stat_num"
+            "stat_img stat_descrip";
 }
-/*======================================= delete and change =======================*/
+.stat_img {
+    grid-area: stat_img;
+}
+.stat_num {
+    grid-area: stat_num;
+    max-height: 50px;
+}
+.stat_descrip {
+    grid-area: stat_descrip;
+    max-height: 60px;
+}
+
+.statsNumFont {
+    font:normal normal normal 30px/35px Garamond Premier Pro;
+    letter-spacing: 0px;
+    color: #404040;
+    text-align: left;
+    max-height: 5px;
+
+}
+.statsDescriptionFont {
+    font:normal normal normal 20px/24px Helvetica;
+    letter-spacing: 0px;
+    color: #404040;
+    opacity: 0.71;
+    text-align: left;
+    max-height: 5px;
+}
+
+/*======================================= Charts div =======================*/
+.barCharts {
+    background-color: #f5f5f5;
+    width: 100%;/*  Full width */
+    display: grid;
+    align-items: center;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+}
+
+.eachBarChart {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    box-shadow: 0 0 10px gray;
+    padding: 0;
+    display: grid;
+    align-items: center;
+    margin-left: 10px;
+    grid-template-rows: 10% 90%;
+    gap: 0px 0px;
+}
+
+.chartTitleFont {
+    text-align: center;
+    font: normal normal normal 25px/25px Helvetica;
+    color: #404040;
+    opacity: 0.71;
+}
+
+/*======================================= Footer div =======================*/
+.footer {
+    background-color: #f5f5f5;
+    bottom: 0; /* Position the navbar at the top of the page */
+    width: 100%;/*  Full width */
+    display: grid;
+    align-items: center;
+    grid-template-columns: 180px auto 5rem 5rem 5rem 10rem;
+}
+
 
 hr {
   display: block;
@@ -89,5 +173,12 @@ hr {
   margin-right: auto;
   border-style: inset;
   border-width: 1px;
+}
+
+.vertical-line{
+    display: inline-block;
+    border-left: 2px solid #ccc;
+    margin: 0 10px;
+    height: 50px;
 }
 

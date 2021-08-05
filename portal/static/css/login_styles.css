@@ -29,6 +29,6 @@ a:visited{
     text-decoration: underline;
 }
 
-input:hover{
+.loginButton:hover{
     text-decoration: underline;
 }
