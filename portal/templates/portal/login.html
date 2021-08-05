@@ -13,12 +13,12 @@
     &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<img style="width: 400px;height: 120px;display: block; margin-left: auto; margin-right: auto;" src="static/css/icon.png">
     <br><br>
     <h1 style="text-align:center;font: normal normal normal 33px/35px Muna;letter-spacing: 0px;color: #707070;">Saving Circles for Unbanked Farmers</h1>
-    <br>
-    <form style="text-align:center;font: normal normal normal 30px/35px Muna;letter-spacing: 0px;color: #707070;" method="post">
+    <br><br><br>
+    <form style="text-align:center;font: normal normal normal 30px/30px Muna;letter-spacing: 0px;color: #707070;" method="post">
         {% csrf_token %}
         {{ login_form }}
         <br><br>
-        <input style="background: #FACC5C 0% 0% no-repeat padding-box;border-radius: 14px;width: 120px;height: 60px;text-align: center;font: normal normal bold 30px/35px Muna;letter-spacing: 0px;color: #707070;" type="submit" value="Login">
+        <input class="loginButton" style="border: solid;border-color: #FACC5C;cursor: pointer; background: #FACC5C 0% 0% no-repeat padding-box;border-radius: 14px;width: 120px;height: 50px;text-align: center;font: normal normal bold 30px/35px Muna;letter-spacing: 0px;color: #707070;" type="submit" value="Login">
     </form>
 </body>
 </html>
