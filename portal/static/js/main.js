@@ -2,6 +2,8 @@
 var CHART1_canvas = document.getElementById("circleCount_chart").getContext('2d');
 // deposit count chart
 var CHART2_canvas = document.getElementById("depositCount_chart").getContext('2d');
+// request count chart
+var CHART3_canvas = document.getElementById("requestCount_chart").getContext('2d');
 
 //////////////////////////////Initiate Circle Chart//////////////////////////////////////////////////
 let CHART1 = new Chart(CHART1_canvas, {
@@ -42,6 +44,36 @@ let CHART2 = new Chart(CHART2_canvas, {
     datasets: [{
       label: "# of deposits created",
       data: daysALL_deposit_dailyCount_list,
+      backgroundColor: [
+        'rgba(75, 192, 192, 0.2)'
+      ],
+      borderColor: [
+        'rgba(75, 192, 192, 1)',
+      ],
+      borderWidth: 0.5
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      },
+      xAxes: {
+        display: true
+      }
+      },
+    responsive: false,
+  }
+});
+
+//////////////////////////////Initiate Request Chart//////////////////////////////////////////////////
+let CHART3 = new Chart(CHART3_canvas, {
+  type: 'bar',
+  data: {
+    labels: daysALL_request_created_dates_list,
+    datasets: [{
+      label: "# of requests created",
+      data: daysALL_request_dailyCount_list,
       backgroundColor: [
         'rgba(75, 192, 192, 0.2)'
       ],
@@ -125,6 +157,35 @@ function change_30days() {
       responsive: false,
     }
   });
+  CHART3.destroy();
+  CHART3 = new Chart(CHART3_canvas, {
+    type: 'bar',
+    data: {
+      labels: days30_request_created_dates_list,
+      datasets: [{
+        label: "# of requests created",
+        data: days30_request_dailyCount_list,
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)'
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+        ],
+        borderWidth: 0.5
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        },
+        xAxes: {
+          display: true
+        }
+        },
+      responsive: false,
+    }
+  });
 };
 function change_ALLdays() {
   CHART1.destroy();
@@ -185,6 +246,35 @@ function change_ALLdays() {
       responsive: false,
     }
   });
+  CHART3.destroy();
+  CHART3 = new Chart(CHART3_canvas, {
+    type: 'bar',
+    data: {
+      labels: daysALL_request_created_dates_list,
+      datasets: [{
+        label: "# of requests created",
+        data: daysALL_request_dailyCount_list,
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)'
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+        ],
+        borderWidth: 0.5
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        },
+        xAxes: {
+          display: true
+        }
+        },
+      responsive: false,
+    }
+  });
 };
 function change_365days() {
   CHART1.destroy();
@@ -224,6 +314,35 @@ function change_365days() {
       datasets: [{
         label: "# of deposits created",
         data: days365_deposit_dailyCount_list,
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)'
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+        ],
+        borderWidth: 0.5
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        },
+        xAxes: {
+          display: true
+        }
+        },
+      responsive: false,
+    }
+  });
+  CHART3.destroy();
+  CHART3 = new Chart(CHART3_canvas, {
+    type: 'bar',
+    data: {
+      labels: days365_request_created_dates_list,
+      datasets: [{
+        label: "# of requests created",
+        data: days365_request_dailyCount_list,
         backgroundColor: [
           'rgba(75, 192, 192, 0.2)'
         ],
