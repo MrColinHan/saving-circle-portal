@@ -12,75 +12,154 @@
     <div class="WebContainer">
 
         <header class="TopHeader">
-            <br>
-            <img style="width: 200px;height: 70px;display: block;" src="static/css/icon.png">
-            <hr>
-        </header>
+            <img style="width: 151px;height: 50px;display: block;" src="static/css/icon.png">
 
-        <div class="btn-group">
+            <span class="vertical-line"></span>
+
+            <div style="margin-left: 20px">
+
+                <button class="timeRangeButton" onclick="change_ALLdays()">All</button>
+                <button class="timeRangeButton" onclick="change_30days()">M</button>
+                <button class="timeRangeButton" onclick="change_365days()">Y</button>
+            </div>
+
             <form action="{% url 'django_admin' %}" method="post">
                 {% csrf_token %}
-                <button type="submit">Django Admin</button>
+                <button class="logoutButton" type="submit">Admin</button>
             </form>
-
-            <button onclick="window.location.href='/download_circle'">Download circles_created.csv</button>
-            <button onclick="window.location.href='/download_deposit'">Download deposits_made.csv</button>
-            <button onclick="window.location.href='/download_request'">Download requests_made.csv</button>
 
             <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
-                <button type="submit">Dashboard Logout</button>
+                <button class="logoutButton" type="submit">Logout</button>
             </form>
-        </div>
+        </header>
 
         <br><br>
 
-        <hr>
+        <div class="statsContainer">
 
-        <p style="margin-left: 20px; font-size:30px;">Current Stats: </p>
-
-        <div class="container">
-
-            <div class="item">
-                <p style="font-size:20px;">
-                &emsp;# of Circles created:&ensp;&ensp;{{ amount_of_circles }}<br><br>
-                &emsp;# of Deposits made:&ensp;&ensp;{{ amount_of_deposits }}<br><br>
-                &emsp;# of Loan requests made:&ensp;&ensp;2<br>
-                </p>
+            <div class="statsItem">
+                <div class="stat_img">
+                    <img style="margin-left: 20px; width: 60px;height: 60px;display: block;" src="static/css/circle.png">
+                </div>
+                <div class="stat_num">
+                    <p class="statsNumFont">{{ amount_of_circles }}</p>
+                </div>
+                <div class="stat_descrip">
+                    <p class="statsDescriptionFont" >Circles Created</p>
+                </div>
             </div>
 
-            <div class="item">
-                <p style="font-size:20px;">
-                &emsp;Total Deposits:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;${{ dollar_amount_of_deposits }} <br><br>
-                &emsp;Total Loan Requests:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;${{ 100 }}
-                </p>
+            <div class="statsItem">
+                <div class="stat_img">
+                    <img style="margin-left: 20px; width: 60px;height: 60px;display: block;" src="static/css/active_user.png">
+                </div>
+                <div class="stat_num">
+                    <p class="statsNumFont">{{ amount_of_users }}</p>
+                </div>
+                <div class="stat_descrip">
+                    <p class="statsDescriptionFont" >Active Users</p>
+                </div>
+            </div>
+
+            <div class="statsItem">
+                <div class="stat_img">
+                    <img style="margin-left: 20px; width: 60px;height: 60px;display: block;" src="static/css/cash.png">
+                </div>
+                <div class="stat_num">
+                    <p class="statsNumFont">${{ dollar_amount_of_deposits }}</p>
+                </div>
+                <div class="stat_descrip">
+                    <p class="statsDescriptionFont" >Total Deposits</p>
+                </div>
+            </div>
+
+            <div class="statsItem">
+                <div class="stat_img">
+                    <img style="margin-left: 20px; width: 60px;height: 60px;display: block;" src="static/css/loan_request.png">
+                </div>
+                <div class="stat_num">
+                    <p class="statsNumFont">{{ amount_of_deposits }}</p>
+                </div>
+                <div class="stat_descrip">
+                    <p class="statsDescriptionFont" ># of Deposits</p>
+                </div>
+            </div>
+
+            <div class="statsItem">
+                <div class="stat_img">
+                    <img style="margin-left: 20px; width: 60px;height: 60px;display: block;" src="static/css/loan_request.png">
+                </div>
+                <div class="stat_num">
+                    <p class="statsNumFont">{{ amount_of_requests }}</p>
+                </div>
+                <div class="stat_descrip">
+                    <p class="statsDescriptionFont" ># of Requests</p>
+                </div>
             </div>
         </div>
-        <br>
 
+        <br><br><br>
+
+        <div class="barCharts">
+            <!-- Circle count Chart-->
+            <div class="eachBarChart">
+                <p class="chartTitleFont">Circle Created Frequency</p>
+
+                <canvas id="circleCount_chart" width="600" height="400" style="margin: 0 auto;"></canvas>
+            </div>
+
+            <!-- deposit count Chart-->
+            <div class="eachBarChart">
+                <p class="chartTitleFont">Deposit Made Frequency</p>
+
+                <canvas id="depositCount_chart" width="600" height="400" style="margin: 0 auto;"></canvas>
+            </div>
+
+            <!-- Request count Chart-->
+            <div class="eachBarChart">
+                <p class="chartTitleFont">Request Made Frequency</p>
+
+                <canvas id="requestCount_chart" width="600" height="400" style="margin: 0 auto;"></canvas>
+            </div>
+
+        </div>
+
+        <br><br><br>
         <hr>
 
-        <div style="margin-left: 20px">
-            <p style="font-size:30px;">Adjust Time Range (UTC time)</p>
-            <button onclick="change_ALLdays()">All</button>
-            <button onclick="change_30days()">30D</button>
-            <button onclick="change_365days()">1Y</button>
+        <div class="footer">
+            <p style="font: normal normal bold 20px/20px Helvetica;letter-spacing: 0px;color: #404040;opacity: 0.71;">CSV Downloads:</p>
+
+            <div>
+                <button class="timeRangeButton" onclick="window.location.href='/download_circle'">Circles</button>
+                <button class="timeRangeButton" onclick="window.location.href='/download_deposit'">Deposits</button>
+                <button class="timeRangeButton" onclick="window.location.href='/download_request'">Requests</button>
+            </div>
+
+            <div>
+                <a href="https://github.com/MrColinHan/saving-circle-portal" target="_blank" title="Web Portal">
+                    <img style="width: 50px;height: 50px;display: block;" src="static/css/github.png">
+                </a>
+
+            </div>
+
+            <div>
+                <a href="https://thegraph.com/legacy-explorer/subgraph/mrcolinhan/saving-circle-subgraph" target="_blank" title="SubGraph">
+                    <img style="width: 50px;height: 50px;display: block;" src="static/css/theGraph.png">
+                </a>
+
+            </div>
+
+            <div>
+                <a href="https://celohub.org/" target="_blank">
+                    <img style="width: 50px;height: 50px;display: block;" src="static/css/openCelo.png">
+                </a>
+            </div>
+
+
         </div>
 
-
-        <!-- Circle count Chart-->
-        <div style=" width: 1000px; height:500px;">
-            <p style="font-size:30px; text-align: center;">Circles Created Frequency</p>
-
-            <canvas id="circleCount_chart" width="800" height="400" style="margin: 0 auto;"></canvas>
-        </div>
-
-        <!-- deposit count Chart-->
-        <div style=" width: 1000px; height:500px;">
-            <p style="font-size:30px; text-align: center;">Deposits Made Frequency</p>
-
-            <canvas id="depositCount_chart" width="800" height="400" style="margin: 0 auto;"></canvas>
-        </div>
     </div>
 
 
@@ -119,6 +198,7 @@
             {% endfor %}
         ];
 
+
         var daysALL_deposit_created_dates_list = [
             {% for item in deposit_created_dates_list %}
             "{{ item }}",
@@ -148,7 +228,40 @@
             {% for item in 365days_deposit_dailyCount_list %}
             "{{ item }}",
             {% endfor %}
+        ];
+
+
+        var daysALL_request_created_dates_list = [
+            {% for item in request_created_dates_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var daysALL_request_dailyCount_list = [
+            {% for item in request_dailyCount_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var days30_request_created_dates_list = [
+            {% for item in 30days_request_created_dates_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var days30_request_dailyCount_list = [
+            {% for item in 30days_request_dailyCount_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var days365_request_created_dates_list = [
+            {% for item in 365days_request_created_dates_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var days365_request_dailyCount_list = [
+            {% for item in 365days_request_dailyCount_list %}
+            "{{ item }}",
+            {% endfor %}
         ]
+
 
     </script>
 
