@@ -4,6 +4,11 @@ var CHART1_canvas = document.getElementById("circleCount_chart").getContext('2d'
 var CHART2_canvas = document.getElementById("depositCount_chart").getContext('2d');
 // request count chart
 var CHART3_canvas = document.getElementById("requestCount_chart").getContext('2d');
+// deposit amount chart
+var CHART4_canvas = document.getElementById("depositAmount_chart").getContext('2d');
+// request amount chart
+var CHART5_canvas = document.getElementById("requestAmount_chart").getContext('2d');
+
 
 //////////////////////////////Initiate Circle Chart//////////////////////////////////////////////////
 let CHART1 = new Chart(CHART1_canvas, {
@@ -42,8 +47,70 @@ let CHART2 = new Chart(CHART2_canvas, {
   data: {
     labels: daysALL_deposit_created_dates_list,
     datasets: [{
-      label: "# of deposits created",
+      label: "# of deposits made",
       data: daysALL_deposit_dailyCount_list,
+      backgroundColor: [
+        'rgba(53,208,127,1.00)'
+      ],
+      borderColor: [
+        'rgba(53,208,127,1.00)',
+      ],
+      borderWidth: 0.5
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      },
+      xAxes: {
+        display: true
+      }
+      },
+    responsive: false,
+  }
+});
+
+//////////////////////////////Initiate Deposits Amount Chart//////////////////////////////////////////////////
+
+let CHART4 = new Chart(CHART4_canvas, {
+  type: 'bar',
+  data: {
+    labels: daysALL_deposit_created_dates_list,
+    datasets: [{
+      label: "$ of deposits made",
+      data: daysALL_deposit_dailyAmount_list,
+      backgroundColor: [
+        'rgba(53,208,127,1.00)'
+      ],
+      borderColor: [
+        'rgba(53,208,127,1.00)',
+      ],
+      borderWidth: 0.5
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      },
+      xAxes: {
+        display: true
+      }
+      },
+    responsive: false,
+  }
+});
+
+//////////////////////////////Initiate Request Amount Chart//////////////////////////////////////////////////
+
+let CHART5 = new Chart(CHART5_canvas, {
+  type: 'bar',
+  data: {
+    labels: daysALL_request_created_dates_list,
+    datasets: [{
+      label: "$ of requests made",
+      data: daysALL_request_dailyAmount_list,
       backgroundColor: [
         'rgba(53,208,127,1.00)'
       ],
@@ -72,7 +139,7 @@ let CHART3 = new Chart(CHART3_canvas, {
   data: {
     labels: daysALL_request_created_dates_list,
     datasets: [{
-      label: "# of requests created",
+      label: "# of requests made",
       data: daysALL_request_dailyCount_list,
       backgroundColor: [
         'rgba(53,208,127,1.00)'
@@ -134,7 +201,7 @@ function change_30days() {
     data: {
       labels: days30_deposit_created_dates_list,
       datasets: [{
-        label: "# of deposits created",
+        label: "# of deposits made",
         data: days30_deposit_dailyCount_list,
         backgroundColor: [
           'rgba(53,208,127,1.00)'
@@ -163,8 +230,66 @@ function change_30days() {
     data: {
       labels: days30_request_created_dates_list,
       datasets: [{
-        label: "# of requests created",
+        label: "# of requests made",
         data: days30_request_dailyCount_list,
+        backgroundColor: [
+          'rgba(53,208,127,1.00)'
+        ],
+        borderColor: [
+          'rgba(53,208,127,1.00)',
+        ],
+        borderWidth: 0.5
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        },
+        xAxes: {
+          display: true
+        }
+        },
+      responsive: false,
+    }
+  });
+  CHART4.destroy();
+  CHART4 = new Chart(CHART4_canvas, {
+    type: 'bar',
+    data: {
+      labels: days30_deposit_created_dates_list,
+      datasets: [{
+        label: "$ of requests made",
+        data: days30_deposit_dailyAmount_list,
+        backgroundColor: [
+          'rgba(53,208,127,1.00)'
+        ],
+        borderColor: [
+          'rgba(53,208,127,1.00)',
+        ],
+        borderWidth: 0.5
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        },
+        xAxes: {
+          display: true
+        }
+        },
+      responsive: false,
+    }
+  });
+  CHART5.destroy();
+  CHART5 = new Chart(CHART5_canvas, {
+    type: 'bar',
+    data: {
+      labels: days30_request_created_dates_list,
+      datasets: [{
+        label: "$ of requests made",
+        data: days30_request_dailyAmount_list,
         backgroundColor: [
           'rgba(53,208,127,1.00)'
         ],
@@ -223,7 +348,7 @@ function change_ALLdays() {
     data: {
       labels: daysALL_deposit_created_dates_list,
       datasets: [{
-        label: "# of deposits created",
+        label: "# of deposits made",
         data: daysALL_deposit_dailyCount_list,
         backgroundColor: [
           'rgba(53,208,127,1.00)'
@@ -252,8 +377,66 @@ function change_ALLdays() {
     data: {
       labels: daysALL_request_created_dates_list,
       datasets: [{
-        label: "# of requests created",
+        label: "# of requests made",
         data: daysALL_request_dailyCount_list,
+        backgroundColor: [
+          'rgba(53,208,127,1.00)'
+        ],
+        borderColor: [
+          'rgba(53,208,127,1.00)',
+        ],
+        borderWidth: 0.5
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        },
+        xAxes: {
+          display: true
+        }
+        },
+      responsive: false,
+    }
+  });
+  CHART4.destroy();
+  CHART4 = new Chart(CHART4_canvas, {
+    type: 'bar',
+    data: {
+      labels: daysALL_deposit_created_dates_list,
+      datasets: [{
+        label: "$ of deposits made",
+        data: daysALL_deposit_dailyAmount_list,
+        backgroundColor: [
+          'rgba(53,208,127,1.00)'
+        ],
+        borderColor: [
+          'rgba(53,208,127,1.00)',
+        ],
+        borderWidth: 0.5
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        },
+        xAxes: {
+          display: true
+        }
+        },
+      responsive: false,
+    }
+  });
+  CHART5.destroy();
+  CHART5 = new Chart(CHART5_canvas, {
+    type: 'bar',
+    data: {
+      labels: daysALL_request_created_dates_list,
+      datasets: [{
+        label: "$ of requests made",
+        data: daysALL_request_dailyAmount_list,
         backgroundColor: [
           'rgba(53,208,127,1.00)'
         ],
@@ -312,7 +495,7 @@ function change_365days() {
     data: {
       labels: days365_deposit_created_dates_list,
       datasets: [{
-        label: "# of deposits created",
+        label: "# of deposits made",
         data: days365_deposit_dailyCount_list,
         backgroundColor: [
           'rgba(53,208,127,1.00)'
@@ -341,8 +524,66 @@ function change_365days() {
     data: {
       labels: days365_request_created_dates_list,
       datasets: [{
-        label: "# of requests created",
+        label: "# of requests made",
         data: days365_request_dailyCount_list,
+        backgroundColor: [
+          'rgba(53,208,127,1.00)'
+        ],
+        borderColor: [
+          'rgba(53,208,127,1.00)',
+        ],
+        borderWidth: 0.5
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        },
+        xAxes: {
+          display: true
+        }
+        },
+      responsive: false,
+    }
+  });
+  CHART4.destroy();
+  CHART4 = new Chart(CHART4_canvas, {
+    type: 'bar',
+    data: {
+      labels: days365_deposit_created_dates_list,
+      datasets: [{
+        label: "# of deposits made",
+        data: days365_deposit_dailyAmount_list,
+        backgroundColor: [
+          'rgba(53,208,127,1.00)'
+        ],
+        borderColor: [
+          'rgba(53,208,127,1.00)',
+        ],
+        borderWidth: 0.5
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        },
+        xAxes: {
+          display: true
+        }
+        },
+      responsive: false,
+    }
+  });
+  CHART5.destroy();
+  CHART5 = new Chart(CHART5_canvas, {
+    type: 'bar',
+    data: {
+      labels: days365_request_created_dates_list,
+      datasets: [{
+        label: "$ of requests made",
+        data: days365_request_dailyAmount_list,
         backgroundColor: [
           'rgba(53,208,127,1.00)'
         ],

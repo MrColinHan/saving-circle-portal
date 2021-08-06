@@ -84,28 +84,35 @@
             <div class="eachBarChart">
                 <p class="chartTitleFont">Circle Created Frequency</p>
 
-                <canvas id="circleCount_chart" width="600" height="400" style="margin: 0 auto;"></canvas>
+                <canvas id="circleCount_chart" width="500" height="400" style="margin: 0 auto;"></canvas>
             </div>
 
             <!-- deposit count Chart-->
             <div class="eachBarChart">
                 <p class="chartTitleFont">Deposit Made Frequency</p>
 
-                <canvas id="depositCount_chart" width="600" height="400" style="margin: 0 auto;"></canvas>
+                <canvas id="depositCount_chart" width="500" height="400" style="margin: 0 auto;"></canvas>
             </div>
 
             <!-- Request count Chart-->
             <div class="eachBarChart">
                 <p class="chartTitleFont">Request Made Frequency</p>
 
-                <canvas id="requestCount_chart" width="600" height="400" style="margin: 0 auto;"></canvas>
+                <canvas id="requestCount_chart" width="500" height="400" style="margin: 0 auto;"></canvas>
             </div>
 
-            <!-- Request count Chart-->
+            <!-- Deposit Amount Chart-->
             <div class="eachBarChart">
                 <p class="chartTitleFont">Deposit Made Amount</p>
 
-                <canvas id="depositAmount_chart" width="600" height="400" style="margin: 0 auto;"></canvas>
+                <canvas id="depositAmount_chart" width="500" height="400" style="margin: 0 auto;"></canvas>
+            </div>
+
+            <!-- Request Amount Chart-->
+            <div class="eachBarChart">
+                <p class="chartTitleFont">Request Made Amount</p>
+
+                <canvas id="requestAmount_chart" width="500" height="400" style="margin: 0 auto;"></canvas>
             </div>
 
         </div>
@@ -246,6 +253,22 @@
             {% endfor %}
         ];
 
+        var daysALL_deposit_dailyAmount_list = [
+            {% for item in deposit_dailyAmount_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var days30_deposit_dailyAmount_list = [
+            {% for item in 30days_deposit_dailyAmount_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var days365_deposit_dailyAmount_list = [
+            {% for item in 365days_deposit_dailyAmount_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+
 
         var daysALL_request_created_dates_list = [
             {% for item in request_created_dates_list %}
@@ -276,7 +299,22 @@
             {% for item in 365days_request_dailyCount_list %}
             "{{ item }}",
             {% endfor %}
-        ]
+        ];
+        var daysALL_request_dailyAmount_list = [
+            {% for item in request_dailyAmount_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var days30_request_dailyAmount_list = [
+            {% for item in 30days_request_dailyAmount_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
+        var days365_request_dailyAmount_list = [
+            {% for item in 365days_request_dailyAmount_list %}
+            "{{ item }}",
+            {% endfor %}
+        ];
 
 
     </script>

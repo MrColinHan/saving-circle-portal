@@ -78,6 +78,10 @@ def pass_python_data_toHTML(request):
 
     global all_active_users_dict, all_active_circles_dict
 
+    # reset
+    all_active_circles_dict = dict()
+    all_active_users_dict = dict()
+
     '''===connect to the queries http on The Graph==='''
     http_transport = RequestsHTTPTransport(
         url=graph_Api_url,
@@ -290,6 +294,21 @@ def pass_python_data_toHTML(request):
         deposit_date_count_dict_90days[k] = deposit_date_count_dict[k]
         deposit_date_count_dict_365days[k] = deposit_date_count_dict[k]
 
+# =================================== parse deposit Amount data to chart.js ===================================
+
+    deposit_dailyAmount_list = deposit_amount_byDay_df.to_frame().rename(columns={'amount': 'sum'})['sum'].to_list()
+
+    # IMPORTANT
+    deposit_date_amount_dict = dict(zip(str_deposit_created_dates_list, deposit_dailyAmount_list))
+
+    # IMPORTANT
+    deposit_date_amount_dict_30days = copy.deepcopy(empty_30days_dict)
+    deposit_date_amount_dict_90days = copy.deepcopy(empty_90days_dict)
+    deposit_date_amount_dict_365days = copy.deepcopy(empty_365days_dict)
+    for k in deposit_date_amount_dict:
+        deposit_date_amount_dict_30days[k] = deposit_date_amount_dict[k]
+        deposit_date_amount_dict_90days[k] = deposit_date_amount_dict[k]
+        deposit_date_amount_dict_365days[k] = deposit_date_amount_dict[k]
 
 
 # =================================== parse request count data to chart.js ===================================
@@ -312,6 +331,22 @@ def pass_python_data_toHTML(request):
         request_date_count_dict_30days[k] = request_date_count_dict[k]
         request_date_count_dict_90days[k] = request_date_count_dict[k]
         request_date_count_dict_365days[k] = request_date_count_dict[k]
+
+# =================================== parse deposit Amount data to chart.js ===================================
+
+    request_dailyAmount_list = request_amount_byDay_df.to_frame().rename(columns={'amount': 'sum'})['sum'].to_list()
+
+    # IMPORTANT
+    request_date_amount_dict = dict(zip(str_request_created_dates_list, request_dailyAmount_list))
+
+    # IMPORTANT
+    request_date_amount_dict_30days = copy.deepcopy(empty_30days_dict)
+    request_date_amount_dict_90days = copy.deepcopy(empty_90days_dict)
+    request_date_amount_dict_365days = copy.deepcopy(empty_365days_dict)
+    for k in request_date_count_dict:
+        request_date_amount_dict_30days[k] = request_date_amount_dict[k]
+        request_date_amount_dict_90days[k] = request_date_amount_dict[k]
+        request_date_amount_dict_365days[k] = request_date_amount_dict[k]
 
 # =================================== pass all data to chart.js ===================================
     pass_data = {
@@ -339,6 +374,11 @@ def pass_python_data_toHTML(request):
         '365days_deposit_created_dates_list': deposit_date_count_dict_365days.keys(),
         '365days_deposit_dailyCount_list': deposit_date_count_dict_365days.values(),
 
+        'deposit_dailyAmount_list': deposit_date_amount_dict.values(),
+        '30days_deposit_dailyAmount_list': deposit_date_amount_dict_30days.values(),
+        '90days_deposit_dailyAmount_list': deposit_date_amount_dict_90days.values(),
+        '365days_deposit_dailyAmount_list': deposit_date_amount_dict_365days.values(),
+
         'amount_of_requests': len(graphql_query_response['loanRequestMadeEntities']),
         'dollar_amount_of_requests': total_deposit_amount_dollar,
 
@@ -350,6 +390,11 @@ def pass_python_data_toHTML(request):
         '90days_request_dailyCount_list': request_date_count_dict_90days.values(),
         '365days_request_created_dates_list': request_date_count_dict_365days.keys(),
         '365days_request_dailyCount_list': request_date_count_dict_365days.values(),
+
+        'request_dailyAmount_list': request_date_amount_dict.values(),
+        '30days_request_dailyAmount_list': request_date_amount_dict_30days.values(),
+        '90days_request_dailyAmount_list': request_date_amount_dict_90days.values(),
+        '365days_request_dailyAmount_list': request_date_amount_dict_365days.values(),
 
         '30days_list': get_x_dayList(30),
         '90days_list': get_x_dayList(90),
@@ -363,6 +408,7 @@ def pass_python_data_toHTML(request):
             user_w = csv.writer(user_f)
             user_w.writerows(
                 [['activity', 'time', 'circle address',  'amount']] + all_active_users_dict[each_active_user])
+            user_f.close()
 
     # write each circle file
     for each_active_circle in all_active_circles_dict:
@@ -370,8 +416,9 @@ def pass_python_data_toHTML(request):
             circle_w = csv.writer(circle_f)
             circle_w.writerows(
                 [['activity', 'time', 'user address',  'amount']] + all_active_circles_dict[each_active_circle])
+            circle_f.close()
 
-
+    print(len(all_active_circles_dict['0x0099000000000000000000000000000000000000000000000000000001066666']))
     return render(request, 'portal/main_page.html', pass_data)
 
 
