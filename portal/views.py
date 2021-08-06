@@ -13,6 +13,7 @@ Description:
     In addition, it also includes all necessary python functions such as Django login.
 """
 
+import csv
 from gql import gql, Client
 from gql.transport.requests import RequestsHTTPTransport
 from datetime import datetime
@@ -64,9 +65,19 @@ def get_x_dayList(x):  # get a list of x days counting from today
         result.append(i.strftime('%m-%d-%y'))
     return result
 
+# =================================== global variables: track all active users and circles ===================================
+
+all_active_users_dict = dict() # keep track all activities within each user
+
+all_active_circles_dict = dict()  # keep track all activities within each circle
+
+
 '''===passing circle data to HTML==='''
 @login_required(login_url="/")
 def pass_python_data_toHTML(request):
+
+    global all_active_users_dict, all_active_circles_dict
+
     '''===connect to the queries http on The Graph==='''
     http_transport = RequestsHTTPTransport(
         url=graph_Api_url,
@@ -112,8 +123,21 @@ def pass_python_data_toHTML(request):
     circles_df = pd.DataFrame(columns=['circle address', 'creator address', 'timeStamp'])
     # print(f"{len(graphql_query_response['circleCreatedEntities'])} circles have been created: ")
     for circle in graphql_query_response['circleCreatedEntities']:
-        circles_df.loc[len(circles_df)] = [circle['id'], circle['creator'],
-                                           datetime.fromtimestamp(int(circle['timeStamp']))]
+        circles_df.loc[len(circles_df)] = [circle['id'], circle['creator'], datetime.fromtimestamp(int(circle['timeStamp']))]
+
+        # initiate this circle, record this activity as a inner list
+        all_active_circles_dict[circle['id']] = [['created circle',
+                                                 datetime.fromtimestamp(int(circle['timeStamp'])), circle['creator']]]
+
+        # track this user, record this activity
+        if circle['creator'] not in all_active_users_dict:  # if this is a new user, initiate tracking
+            all_active_users_dict[circle['creator']] = [
+                ['created circle', datetime.fromtimestamp(int(circle['timeStamp'])), circle['id']]]
+        else:  # this user is already in the system, append this activity
+            all_active_users_dict[circle['creator']].append(
+                ['created circle', datetime.fromtimestamp(int(circle['timeStamp'])), circle['id']])
+
+
         # print(f"{circle['id']} ----- {circle['creator']} ----- {datetime.fromtimestamp(int(circle['timeStamp']))}")
     #print(circles_df)
     circles_df.to_csv("csv_files_fromPy/circles_created.csv")  # output circle dataframe to a csv file
@@ -136,13 +160,38 @@ def pass_python_data_toHTML(request):
                                            deposit['depositor'],
                                            deposit['circle'], deposit['amount'],
                                            datetime.fromtimestamp(int(deposit['timeStamp']))]
-    #print(deposit_df)
+
+        # record this activity
+        # make sure this circle exists
+        if deposit['circle'] not in all_active_circles_dict:
+            all_active_circles_dict[deposit['circle']] = [
+                ['deposit made', datetime.fromtimestamp(int(deposit['timeStamp'])), deposit['depositor'],
+                 deposit['amount']]]
+        else:  # circle existed
+            all_active_circles_dict[deposit['circle']].append(
+                ['deposit made', datetime.fromtimestamp(int(deposit['timeStamp'])), deposit['depositor'],
+                 deposit['amount']])
+
+        # track this user, record this activity
+        if deposit['depositor'] not in all_active_users_dict:  # if this is a new user, initiate tracking
+            all_active_users_dict[deposit['depositor']] = [
+                ['deposit made', datetime.fromtimestamp(int(deposit['timeStamp'])), deposit['circle'],
+                 deposit['amount']]]
+        else:  # this user is already in the system, append this activity
+            all_active_users_dict[deposit['depositor']].append(
+                ['deposit made', datetime.fromtimestamp(int(deposit['timeStamp'])), deposit['circle'],
+                 deposit['amount']])
+
     total_deposit_amount_dollar = deposit_df['amount'].astype(int).sum()
     deposit_df.to_csv("csv_files_fromPy/deposits_made.csv")  # save as a csv file
-    # === count number of deposits each day
+    # === count number of deposits each day ===
     deposit_count_byDay_df = deposit_df.groupby(pd.Grouper(key='timeStamp', freq='D'))['id'].count()
     deposit_count_byDay_df.to_frame().rename(columns={'id': 'count'}).to_csv("csv_files_fromPy/deposit_count_byDay.csv")
 
+    # === total dollar amount of deposit each day ===
+    deposit_df['amount'] = deposit_df['amount'].astype(float) # change string to float in order to do sum
+    deposit_amount_byDay_df = deposit_df.groupby(pd.Grouper(key='timeStamp', freq='D'))['amount'].sum()
+    deposit_amount_byDay_df.to_frame().rename(columns={'amount': 'sum'}).to_csv("csv_files_fromPy/deposit_amount_byDay.csv")
 
 # =================================== save "request" data to a dataframe ===================================
     '''===save "loan request" data to a dataframe==='''
@@ -154,12 +203,43 @@ def pass_python_data_toHTML(request):
                                            loan_request['circle'], loan_request['amount'],
                                            datetime.fromtimestamp(int(loan_request['timeStamp'])),
                                            loan_request['granted']]
+
+        # record this activity
+        # make sure this circle exists
+        if loan_request['circle'] not in all_active_circles_dict:
+            all_active_circles_dict[loan_request['circle']] = [['loan requested',
+                                                                datetime.fromtimestamp(int(loan_request['timeStamp'])),
+                                                                loan_request['requester'], loan_request['amount']]]
+        else:  # circle existed
+            all_active_circles_dict[loan_request['circle']].append(['loan requested',
+                                                                    datetime.fromtimestamp(
+                                                                        int(loan_request['timeStamp'])),
+                                                                    loan_request['requester'], loan_request['amount']])
+
+        # track this user, record this activity
+        if loan_request['requester'] not in all_active_users_dict:  # if this is a new user, initiate tracking
+            all_active_users_dict[loan_request['requester']] = [
+                ['deposit made',
+                 datetime.fromtimestamp(int(loan_request['timeStamp'])), loan_request['circle'],
+                 loan_request['amount']]]
+        else:  # this user is already in the system, append this activity
+            all_active_users_dict[loan_request['requester']].append(
+                ['deposit made',
+                 datetime.fromtimestamp(int(loan_request['timeStamp'])), loan_request['circle'],
+                 loan_request['amount']])
+
     # print(deposit_df)
     total_request_amount_dollar = request_df['amount'].astype(int).sum()
     request_df.to_csv("csv_files_fromPy/requests_made.csv")  # save as a csv file
     # === count number of requests each day
     request_count_byDay_df = request_df.groupby(pd.Grouper(key='timeStamp', freq='D'))['id'].count()
     request_count_byDay_df.to_frame().rename(columns={'id': 'count'}).to_csv("csv_files_fromPy/request_count_byDay.csv")
+
+    # === total dollar amount of request each day ===
+    request_df['amount'] = request_df['amount'].astype(float)  # change string to float in order to do sum
+    request_amount_byDay_df = request_df.groupby(pd.Grouper(key='timeStamp', freq='D'))['amount'].sum()
+    request_amount_byDay_df.to_frame().rename(columns={'amount': 'sum'}).to_csv(
+        "csv_files_fromPy/request_amount_byDay.csv")
 
 
 # =================================== parse circle count data to chart.js ===================================
@@ -188,10 +268,6 @@ def pass_python_data_toHTML(request):
         circle_date_count_dict_30days[k] = circle_date_count_dict[k]
         circle_date_count_dict_90days[k] = circle_date_count_dict[k]
         circle_date_count_dict_365days[k] = circle_date_count_dict[k]
-
-    # important
-    '''NEED TO UPDATE THIS PART'''
-    all_active_users_list = ['0xdfdfb95cfed85320ead3713daa4f4de1f7ca05ee']
 
 # =================================== parse deposit count data to chart.js ===================================
     # convert deposit datetime to str-date
@@ -240,7 +316,7 @@ def pass_python_data_toHTML(request):
 # =================================== pass all data to chart.js ===================================
     pass_data = {
         'amount_of_circles': len(graphql_query_response['circleCreatedEntities']),
-        'amount_of_users': len(all_active_users_list),
+        'amount_of_users': len(all_active_users_dict),
 
         'circle_created_dates_list': circle_date_count_dict.keys(),
         'circle_dailyCount_list': circle_date_count_dict.values(),
@@ -280,6 +356,22 @@ def pass_python_data_toHTML(request):
         '365days_list': get_x_dayList(365)
 
     }
+
+    # write each user file
+    for each_active_user in all_active_users_dict:
+        with open(f"csv_files_fromPy/Users&Circles/{each_active_user}.csv", "w") as user_f:
+            user_w = csv.writer(user_f)
+            user_w.writerows(
+                [['activity', 'time', 'circle address',  'amount']] + all_active_users_dict[each_active_user])
+
+    # write each circle file
+    for each_active_circle in all_active_circles_dict:
+        with open(f"csv_files_fromPy/Users&Circles/{each_active_circle}.csv", "w") as circle_f:
+            circle_w = csv.writer(circle_f)
+            circle_w.writerows(
+                [['activity', 'time', 'user address',  'amount']] + all_active_circles_dict[each_active_circle])
+
+
     return render(request, 'portal/main_page.html', pass_data)
 
 
@@ -309,3 +401,16 @@ def download_request_file(request):
     return response
 
 
+def download_specific_user_circle_data(request):
+    input_address = request.POST['user_circle_address']
+    #return render(request, 'portal/main_page.html')
+    try:
+        f1_path = f"csv_files_fromPy/Users&Circles/{input_address}.csv"
+        f1 = open(f1_path, 'r')
+        mime_type, _ = mimetypes.guess_type(f1_path)
+        response = HttpResponse(f1, content_type=mime_type)
+        response['Content-Disposition'] = f"attachment; filename={input_address}.csv"
+        return response
+    except:
+        print("FILE NAME NOT VALID")
+        return redirect('/main_page')

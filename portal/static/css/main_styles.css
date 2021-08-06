@@ -195,3 +195,31 @@ hr {
     height: 50px;
 }
 
+/*======================================= Address searching div =======================*/
+
+.addressSearchBox {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 25px;
+
+    padding: 10px;
+    align-items: center;
+    margin-left: 10px;
+}
+
+
+.searchButton{
+    cursor: pointer;
+    background: #FFFFFF;
+    border: none;
+    border-radius: 50px;
+    border-color: #707070;
+    font: normal normal normal 20px/25px Helvetica;
+    color: #707070;
+    letter-spacing: 0px;
+    text-decoration: underline;
+}
+
+.searchButton:hover{
+    background-color: #FACC5C;
+
+}
