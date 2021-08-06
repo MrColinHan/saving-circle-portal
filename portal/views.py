@@ -300,7 +300,12 @@ def download_deposit_file(request):
     response['Content-Disposition'] = "attachment; filename=deposits_made.csv"
     return response
 
-# def download_request_file(request)
-
+def download_request_file(request):
+    f1_path = "csv_files_fromPy/requests_made.csv"
+    f1 = open(f1_path, 'r')
+    mime_type, _ = mimetypes.guess_type(f1_path)
+    response = HttpResponse(f1, content_type=mime_type)
+    response['Content-Disposition'] = "attachment; filename=requests_made.csv"
+    return response
 
 

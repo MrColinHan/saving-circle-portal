@@ -14,10 +14,10 @@ let CHART1 = new Chart(CHART1_canvas, {
       label: "# of circles created",
       data: daysALL_circle_dailyCount_list,
       backgroundColor: [
-        'rgba(75, 192, 192, 0.2)'
+        'rgba(53,208,127,1.00)'
       ],
       borderColor: [
-        'rgba(75, 192, 192, 1)',
+        'rgba(53,208,127,1.00)',
       ],
       borderWidth: 0.5
     }]
@@ -45,10 +45,10 @@ let CHART2 = new Chart(CHART2_canvas, {
       label: "# of deposits created",
       data: daysALL_deposit_dailyCount_list,
       backgroundColor: [
-        'rgba(75, 192, 192, 0.2)'
+        'rgba(53,208,127,1.00)'
       ],
       borderColor: [
-        'rgba(75, 192, 192, 1)',
+        'rgba(53,208,127,1.00)',
       ],
       borderWidth: 0.5
     }]
@@ -75,10 +75,10 @@ let CHART3 = new Chart(CHART3_canvas, {
       label: "# of requests created",
       data: daysALL_request_dailyCount_list,
       backgroundColor: [
-        'rgba(75, 192, 192, 0.2)'
+        'rgba(53,208,127,1.00)'
       ],
       borderColor: [
-        'rgba(75, 192, 192, 1)',
+        'rgba(53,208,127,1.00)',
       ],
       borderWidth: 0.5
     }]
@@ -107,10 +107,10 @@ function change_30days() {
         label: "# of circles created",
         data: days30_circle_dailyCount_list,
         backgroundColor: [
-          'rgba(75, 192, 192, 0.2)'
+          'rgba(53,208,127,1.00)'
         ],
         borderColor: [
-          'rgba(75, 192, 192, 1)',
+          'rgba(53,208,127,1.00)',
         ],
         borderWidth: 0.5
       }]
@@ -137,10 +137,10 @@ function change_30days() {
         label: "# of deposits created",
         data: days30_deposit_dailyCount_list,
         backgroundColor: [
-          'rgba(75, 192, 192, 0.2)'
+          'rgba(53,208,127,1.00)'
         ],
         borderColor: [
-          'rgba(75, 192, 192, 1)',
+          'rgba(53,208,127,1.00)',
         ],
         borderWidth: 0.5
       }]
@@ -166,10 +166,10 @@ function change_30days() {
         label: "# of requests created",
         data: days30_request_dailyCount_list,
         backgroundColor: [
-          'rgba(75, 192, 192, 0.2)'
+          'rgba(53,208,127,1.00)'
         ],
         borderColor: [
-          'rgba(75, 192, 192, 1)',
+          'rgba(53,208,127,1.00)',
         ],
         borderWidth: 0.5
       }]
@@ -197,10 +197,10 @@ function change_ALLdays() {
         label: "# of circles created",
         data: daysALL_circle_dailyCount_list,
         backgroundColor: [
-          'rgba(75, 192, 192, 0.2)'
+          'rgba(53,208,127,1.00)'
         ],
         borderColor: [
-          'rgba(75, 192, 192, 1)',
+          'rgba(53,208,127,1.00)',
         ],
         borderWidth: 0.5
       }]
@@ -226,10 +226,10 @@ function change_ALLdays() {
         label: "# of deposits created",
         data: daysALL_deposit_dailyCount_list,
         backgroundColor: [
-          'rgba(75, 192, 192, 0.2)'
+          'rgba(53,208,127,1.00)'
         ],
         borderColor: [
-          'rgba(75, 192, 192, 1)',
+          'rgba(53,208,127,1.00)',
         ],
         borderWidth: 0.5
       }]
@@ -255,10 +255,10 @@ function change_ALLdays() {
         label: "# of requests created",
         data: daysALL_request_dailyCount_list,
         backgroundColor: [
-          'rgba(75, 192, 192, 0.2)'
+          'rgba(53,208,127,1.00)'
         ],
         borderColor: [
-          'rgba(75, 192, 192, 1)',
+          'rgba(53,208,127,1.00)',
         ],
         borderWidth: 0.5
       }]
@@ -286,10 +286,10 @@ function change_365days() {
         label: "# of circles created",
         data: days365_circle_dailyCount_list,
         backgroundColor: [
-          'rgba(75, 192, 192, 0.2)'
+          'rgba(53,208,127,1.00)'
         ],
         borderColor: [
-          'rgba(75, 192, 192, 1)',
+          'rgba(53,208,127,1.00)',
         ],
         borderWidth: 0.5
       }]
@@ -315,10 +315,10 @@ function change_365days() {
         label: "# of deposits created",
         data: days365_deposit_dailyCount_list,
         backgroundColor: [
-          'rgba(75, 192, 192, 0.2)'
+          'rgba(53,208,127,1.00)'
         ],
         borderColor: [
-          'rgba(75, 192, 192, 1)',
+          'rgba(53,208,127,1.00)',
         ],
         borderWidth: 0.5
       }]
@@ -344,10 +344,10 @@ function change_365days() {
         label: "# of requests created",
         data: days365_request_dailyCount_list,
         backgroundColor: [
-          'rgba(75, 192, 192, 0.2)'
+          'rgba(53,208,127,1.00)'
         ],
         borderColor: [
-          'rgba(75, 192, 192, 1)',
+          'rgba(53,208,127,1.00)',
         ],
         borderWidth: 0.5
       }]

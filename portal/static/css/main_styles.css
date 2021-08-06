@@ -32,7 +32,7 @@ h1,h2,h3,h4,h5{
     width: 100%;/*  Full width */
     display: grid;
     align-items: center;
-    grid-template-columns: 180px auto 10rem;
+    grid-template-columns: 180px auto;
 
 }
 
@@ -174,7 +174,7 @@ h1,h2,h3,h4,h5{
     width: 100%;/*  Full width */
     display: grid;
     align-items: center;
-    grid-template-columns: 180px auto 5rem 5rem 5rem;
+    grid-template-columns: 180px auto 7rem 7rem 5rem;
 }
 
 
