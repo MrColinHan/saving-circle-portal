@@ -14,24 +14,15 @@
         <header class="TopHeader">
             <img style="width: 151px;height: 50px;display: block;" src="static/css/icon.png">
 
-            <span class="vertical-line"></span>
+            <div></div>
 
             <div style="margin-left: 20px">
-
-                <button class="timeRangeButton" onclick="change_ALLdays()">All</button>
-                <button class="timeRangeButton" onclick="change_30days()">M</button>
+                <button class="timeRangeButton" onclick="change_ALLdays()">All</button>&nbsp;&nbsp;
+                <button class="timeRangeButton" onclick="change_30days()">M</button>&nbsp;&nbsp;
                 <button class="timeRangeButton" onclick="change_365days()">Y</button>
             </div>
 
-            <form action="{% url 'django_admin' %}" method="post">
-                {% csrf_token %}
-                <button class="logoutButton" type="submit">Admin</button>
-            </form>
 
-            <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button class="logoutButton" type="submit">Logout</button>
-            </form>
         </header>
 
         <br><br>
@@ -79,18 +70,6 @@
                     <img style="margin-left: 20px; width: 60px;height: 60px;display: block;" src="static/css/loan_request.png">
                 </div>
                 <div class="stat_num">
-                    <p class="statsNumFont">{{ amount_of_deposits }}</p>
-                </div>
-                <div class="stat_descrip">
-                    <p class="statsDescriptionFont" ># of Deposits</p>
-                </div>
-            </div>
-
-            <div class="statsItem">
-                <div class="stat_img">
-                    <img style="margin-left: 20px; width: 60px;height: 60px;display: block;" src="static/css/loan_request.png">
-                </div>
-                <div class="stat_num">
                     <p class="statsNumFont">{{ amount_of_requests }}</p>
                 </div>
                 <div class="stat_descrip">
@@ -126,16 +105,10 @@
         </div>
 
         <br><br><br>
-        <hr>
 
-        <div class="footer">
-            <p style="font: normal normal bold 20px/20px Helvetica;letter-spacing: 0px;color: #404040;opacity: 0.71;">CSV Downloads:</p>
+        <div class="imgDiv">
+            <div>&nbsp;</div>
 
-            <div>
-                <button class="timeRangeButton" onclick="window.location.href='/download_circle'">Circles</button>
-                <button class="timeRangeButton" onclick="window.location.href='/download_deposit'">Deposits</button>
-                <button class="timeRangeButton" onclick="window.location.href='/download_request'">Requests</button>
-            </div>
 
             <div>
                 <a href="https://github.com/MrColinHan/saving-circle-portal" target="_blank" title="Web Portal">
@@ -156,6 +129,31 @@
                     <img style="width: 50px;height: 50px;display: block;" src="static/css/openCelo.png">
                 </a>
             </div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p style="font: normal normal bold 20px/20px Helvetica;letter-spacing: 0px;color: #404040;opacity: 0.71;">CSV Downloads:</p>
+
+            <div>
+                <button class="timeRangeButton" onclick="window.location.href='/download_circle'">Circles</button>
+                <button class="timeRangeButton" onclick="window.location.href='/download_deposit'">Deposits</button>
+                <button class="timeRangeButton" onclick="window.location.href='/download_request'">Requests</button>
+            </div>
+
+            <form action="{% url 'django_admin' %}" method="post">
+                {% csrf_token %}
+                <button class="logoutButton" type="submit">Admin</button>
+            </form>
+
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button class="logoutButton" type="submit">Logout</button>
+            </form>
+
+
 
 
         </div>
