@@ -223,12 +223,12 @@ def pass_python_data_toHTML(request):
         # track this user, record this activity
         if loan_request['requester'] not in all_active_users_dict:  # if this is a new user, initiate tracking
             all_active_users_dict[loan_request['requester']] = [
-                ['deposit made',
+                ['request made',
                  datetime.fromtimestamp(int(loan_request['timeStamp'])), loan_request['circle'],
                  loan_request['amount']]]
         else:  # this user is already in the system, append this activity
             all_active_users_dict[loan_request['requester']].append(
-                ['deposit made',
+                ['request made',
                  datetime.fromtimestamp(int(loan_request['timeStamp'])), loan_request['circle'],
                  loan_request['amount']])
 
