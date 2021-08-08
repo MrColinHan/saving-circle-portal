@@ -459,15 +459,15 @@ function change_ALLdays() {
     }
   });
 };
-function change_365days() {
+function change_7days() {
   CHART1.destroy();
   CHART1 = new Chart(CHART1_canvas, {
     type: 'bar',
     data: {
-      labels: days365_circle_created_dates_list,
+      labels: days7_circle_created_dates_list,
       datasets: [{
         label: "# of circles created",
-        data: days365_circle_dailyCount_list,
+        data: days7_circle_dailyCount_list,
         backgroundColor: [
           'rgba(53,208,127,1.00)'
         ],
@@ -493,10 +493,10 @@ function change_365days() {
   CHART2 = new Chart(CHART2_canvas, {
     type: 'bar',
     data: {
-      labels: days365_deposit_created_dates_list,
+      labels: days7_deposit_created_dates_list,
       datasets: [{
         label: "# of deposits made",
-        data: days365_deposit_dailyCount_list,
+        data: days7_deposit_dailyCount_list,
         backgroundColor: [
           'rgba(53,208,127,1.00)'
         ],
@@ -522,10 +522,10 @@ function change_365days() {
   CHART3 = new Chart(CHART3_canvas, {
     type: 'bar',
     data: {
-      labels: days365_request_created_dates_list,
+      labels: days7_request_created_dates_list,
       datasets: [{
         label: "# of requests made",
-        data: days365_request_dailyCount_list,
+        data: days7_request_dailyCount_list,
         backgroundColor: [
           'rgba(53,208,127,1.00)'
         ],
@@ -551,10 +551,10 @@ function change_365days() {
   CHART4 = new Chart(CHART4_canvas, {
     type: 'bar',
     data: {
-      labels: days365_deposit_created_dates_list,
+      labels: days7_deposit_created_dates_list,
       datasets: [{
         label: "# of deposits made",
-        data: days365_deposit_dailyAmount_list,
+        data: days7_deposit_dailyAmount_list,
         backgroundColor: [
           'rgba(53,208,127,1.00)'
         ],
@@ -580,10 +580,10 @@ function change_365days() {
   CHART5 = new Chart(CHART5_canvas, {
     type: 'bar',
     data: {
-      labels: days365_request_created_dates_list,
+      labels: days7_request_created_dates_list,
       datasets: [{
         label: "$ of requests made",
-        data: days365_request_dailyAmount_list,
+        data: days7_request_dailyAmount_list,
         backgroundColor: [
           'rgba(53,208,127,1.00)'
         ],

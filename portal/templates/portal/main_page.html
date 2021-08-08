@@ -18,7 +18,7 @@
             <div style="margin-left: 20px">
                 <button class="timeRangeButton" onclick="change_ALLdays()">All</button>&nbsp;&nbsp;
                 <button class="timeRangeButton" onclick="change_30days()">M</button>&nbsp;&nbsp;
-                <button class="timeRangeButton" onclick="change_365days()">Y</button>
+                <button class="timeRangeButton" onclick="change_7days()">Ygit</button>
             </div>
 
 
@@ -210,13 +210,13 @@
             "{{ item }}",
             {% endfor %}
         ];
-        var days365_circle_created_dates_list = [
-            {% for item in 365days_circle_created_dates_list %}
+        var days7_circle_created_dates_list = [
+            {% for item in 7days_circle_created_dates_list %}
             "{{ item }}",
             {% endfor %}
         ];
-        var days365_circle_dailyCount_list = [
-            {% for item in 365days_circle_dailyCount_list %}
+        var days7_circle_dailyCount_list = [
+            {% for item in 7days_circle_dailyCount_list %}
             "{{ item }}",
             {% endfor %}
         ];
@@ -242,13 +242,13 @@
             "{{ item }}",
             {% endfor %}
         ];
-        var days365_deposit_created_dates_list = [
-            {% for item in 365days_deposit_created_dates_list %}
+        var days7_deposit_created_dates_list = [
+            {% for item in 7days_deposit_created_dates_list %}
             "{{ item }}",
             {% endfor %}
         ];
-        var days365_deposit_dailyCount_list = [
-            {% for item in 365days_deposit_dailyCount_list %}
+        var days7_deposit_dailyCount_list = [
+            {% for item in 7days_deposit_dailyCount_list %}
             "{{ item }}",
             {% endfor %}
         ];
@@ -263,8 +263,8 @@
             "{{ item }}",
             {% endfor %}
         ];
-        var days365_deposit_dailyAmount_list = [
-            {% for item in 365days_deposit_dailyAmount_list %}
+        var days7_deposit_dailyAmount_list = [
+            {% for item in 7days_deposit_dailyAmount_list %}
             "{{ item }}",
             {% endfor %}
         ];
@@ -290,13 +290,13 @@
             "{{ item }}",
             {% endfor %}
         ];
-        var days365_request_created_dates_list = [
-            {% for item in 365days_request_created_dates_list %}
+        var days7_request_created_dates_list = [
+            {% for item in 7days_request_created_dates_list %}
             "{{ item }}",
             {% endfor %}
         ];
-        var days365_request_dailyCount_list = [
-            {% for item in 365days_request_dailyCount_list %}
+        var days7_request_dailyCount_list = [
+            {% for item in 7days_request_dailyCount_list %}
             "{{ item }}",
             {% endfor %}
         ];
@@ -310,8 +310,8 @@
             "{{ item }}",
             {% endfor %}
         ];
-        var days365_request_dailyAmount_list = [
-            {% for item in 365days_request_dailyAmount_list %}
+        var days7_request_dailyAmount_list = [
+            {% for item in 7days_request_dailyAmount_list %}
             "{{ item }}",
             {% endfor %}
         ];
