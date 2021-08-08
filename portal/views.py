@@ -269,9 +269,12 @@ def pass_python_data_toHTML(request):
     circle_date_count_dict_90days = copy.deepcopy(empty_90days_dict)
     circle_date_count_dict_365days = copy.deepcopy(empty_365days_dict)
     for k in circle_date_count_dict:
-        circle_date_count_dict_30days[k] = circle_date_count_dict[k]
-        circle_date_count_dict_90days[k] = circle_date_count_dict[k]
-        circle_date_count_dict_365days[k] = circle_date_count_dict[k]
+        if k in circle_date_count_dict_30days:
+            circle_date_count_dict_30days[k] = circle_date_count_dict[k]
+        if k in circle_date_count_dict_90days:
+            circle_date_count_dict_90days[k] = circle_date_count_dict[k]
+        if k in circle_date_count_dict_365days:
+            circle_date_count_dict_365days[k] = circle_date_count_dict[k]
 
 # =================================== parse deposit count data to chart.js ===================================
     # convert deposit datetime to str-date
@@ -290,9 +293,12 @@ def pass_python_data_toHTML(request):
     deposit_date_count_dict_90days = copy.deepcopy(empty_90days_dict)
     deposit_date_count_dict_365days = copy.deepcopy(empty_365days_dict)
     for k in deposit_date_count_dict:
-        deposit_date_count_dict_30days[k] = deposit_date_count_dict[k]
-        deposit_date_count_dict_90days[k] = deposit_date_count_dict[k]
-        deposit_date_count_dict_365days[k] = deposit_date_count_dict[k]
+        if k in deposit_date_count_dict_30days:
+            deposit_date_count_dict_30days[k] = deposit_date_count_dict[k]
+        if k in deposit_date_count_dict_90days:
+            deposit_date_count_dict_90days[k] = deposit_date_count_dict[k]
+        if k in deposit_date_count_dict_365days:
+            deposit_date_count_dict_365days[k] = deposit_date_count_dict[k]
 
 # =================================== parse deposit Amount data to chart.js ===================================
 
@@ -306,9 +312,12 @@ def pass_python_data_toHTML(request):
     deposit_date_amount_dict_90days = copy.deepcopy(empty_90days_dict)
     deposit_date_amount_dict_365days = copy.deepcopy(empty_365days_dict)
     for k in deposit_date_amount_dict:
-        deposit_date_amount_dict_30days[k] = deposit_date_amount_dict[k]
-        deposit_date_amount_dict_90days[k] = deposit_date_amount_dict[k]
-        deposit_date_amount_dict_365days[k] = deposit_date_amount_dict[k]
+        if k in deposit_date_amount_dict_30days:
+            deposit_date_amount_dict_30days[k] = deposit_date_amount_dict[k]
+        if k in deposit_date_amount_dict_90days:
+            deposit_date_amount_dict_90days[k] = deposit_date_amount_dict[k]
+        if k in deposit_date_amount_dict_365days:
+            deposit_date_amount_dict_365days[k] = deposit_date_amount_dict[k]
 
 
 # =================================== parse request count data to chart.js ===================================
@@ -328,9 +337,12 @@ def pass_python_data_toHTML(request):
     request_date_count_dict_90days = copy.deepcopy(empty_90days_dict)
     request_date_count_dict_365days = copy.deepcopy(empty_365days_dict)
     for k in request_date_count_dict:
-        request_date_count_dict_30days[k] = request_date_count_dict[k]
-        request_date_count_dict_90days[k] = request_date_count_dict[k]
-        request_date_count_dict_365days[k] = request_date_count_dict[k]
+        if k in request_date_count_dict_30days:
+            request_date_count_dict_30days[k] = request_date_count_dict[k]
+        if k in request_date_count_dict_90days:
+            request_date_count_dict_90days[k] = request_date_count_dict[k]
+        if k in request_date_count_dict_365days:
+            request_date_count_dict_365days[k] = request_date_count_dict[k]
 
 # =================================== parse deposit Amount data to chart.js ===================================
 
@@ -343,10 +355,13 @@ def pass_python_data_toHTML(request):
     request_date_amount_dict_30days = copy.deepcopy(empty_30days_dict)
     request_date_amount_dict_90days = copy.deepcopy(empty_90days_dict)
     request_date_amount_dict_365days = copy.deepcopy(empty_365days_dict)
-    for k in request_date_count_dict:
-        request_date_amount_dict_30days[k] = request_date_amount_dict[k]
-        request_date_amount_dict_90days[k] = request_date_amount_dict[k]
-        request_date_amount_dict_365days[k] = request_date_amount_dict[k]
+    for k in request_date_amount_dict:
+        if k in request_date_amount_dict_30days:
+            request_date_amount_dict_30days[k] = request_date_amount_dict[k]
+        if k in request_date_amount_dict_90days:
+            request_date_amount_dict_90days[k] = request_date_amount_dict[k]
+        if k in request_date_amount_dict_365days:
+            request_date_amount_dict_365days[k] = request_date_amount_dict[k]
 
 # =================================== pass all data to chart.js ===================================
     pass_data = {
@@ -418,7 +433,6 @@ def pass_python_data_toHTML(request):
                 [['activity', 'time', 'user address',  'amount']] + all_active_circles_dict[each_active_circle])
             circle_f.close()
 
-    print(len(all_active_circles_dict['0x0099000000000000000000000000000000000000000000000000000001066666']))
     return render(request, 'portal/main_page.html', pass_data)
 
 
